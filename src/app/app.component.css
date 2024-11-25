@@ -1,0 +1,18 @@
+.logo-img {
+    height: 250px;
+}
+
+.logo-text {
+    font-family: 'PoetsenOne', 'arial', sans-serif, fantasy;
+    font-size: 3rem;
+}
+
+.operation-text {
+    font-size: 3rem;
+}
+
+.number-button {
+    min-width: 200px;
+    min-height: 100px;
+    font-size: 5rem;
+}
