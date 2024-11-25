@@ -21,10 +21,14 @@ export class AppComponent {
   progressBar = 0;
   correctSound: any;
   wrongAnswerSound: any;
+  youWinSound: any;
+  youLooseSound: any;
 
   // sounds
   correct = '/sounds/correct.wav';
   wrongAsnwer = '/sounds/wrong_answer.wav';
+  youWin = '/sounds/you_win.wav';
+  youLoose = '/sounds/you_loose.wav';
 
   // math stuff
   min = 0;
@@ -34,9 +38,11 @@ export class AppComponent {
   number1!: number;
   number2!: number;
   winner!: boolean;
+  wrongCounter!: number;
 
   ngOnInit() {
     this.progressBar = 0;
+    this.wrongCounter = 0;
     this.gameRoundStart();
     this.winner = false;
 
@@ -47,16 +53,15 @@ export class AppComponent {
     this.wrongAnswerSound =  new Howl({
       src: [this.wrongAsnwer]
     });
-  }
 
-  playCorrectSound() {
-    this.correctSound.play();
-    this.messageService.add({ severity: 'success', summary: 'Correct', detail: 'Good Work! 👍🏻' });
-  }
+    this.youWinSound =  new Howl({
+      src: [this.youWin]
+    });
 
-  playWrongAnswerSound() {
-    this.wrongAnswerSound.play();
-    this.messageService.add({ severity: 'error', summary: 'Wrong Answer', detail: "Sorry, try again 👎🏻" });
+    this.youLooseSound =  new Howl({
+      src: [this.youLoose]
+    });
+
   }
 
   gameRoundStart() {
@@ -80,10 +85,17 @@ export class AppComponent {
       this.wrongAnswerSound.play();
       this.messageService.add({ severity: 'error', summary: 'Wrong Answer', detail: "Sorry, try again 👎🏻" });
       this.progressBar === 0? this.progressBar = 0 : this.progressBar = this.progressBar - 10;
+      this.wrongCounter = this.wrongCounter + 1;
+    }
+
+    if(this.wrongCounter === 3) {
+      this.youLooseSound.play();
+      this.wrongCounter = 0;
     }
 
     if(this.progressBar === 100) {
       this.winner = true;
+      this.youWinSound.play();
     } else {
       this.gameRoundStart();
     }
@@ -92,6 +104,7 @@ export class AppComponent {
   resetGame() {
     this.progressBar = 0;
     this.winner = false;
+    this.wrongCounter = 0;
   }
 
   private randomInt(min: number, max: number): number {
