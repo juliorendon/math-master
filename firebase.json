@@ -1,0 +1,10 @@
+{
+  "hosting": {
+    "public": "dist/math-master/browser",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}

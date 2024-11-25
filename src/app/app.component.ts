@@ -5,11 +5,12 @@ import { ToastModule } from 'primeng/toast';
 import { SidebarModule } from 'primeng/sidebar';
 import { MessageService } from 'primeng/api';
 import { Howl } from 'howler';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [ProgressBarModule, ToastModule, SidebarModule],
+  imports: [ProgressBarModule, ToastModule, SidebarModule, DecimalPipe],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
   providers: [MessageService]
@@ -30,6 +31,9 @@ export class AppComponent {
   youWin = '/sounds/you_win.wav';
   youLoose = '/sounds/you_loose.wav';
 
+  modeNumbers!: boolean;
+  modeMoney!: boolean;
+
   // math stuff
   min = 0;
   max = 49;
@@ -40,10 +44,15 @@ export class AppComponent {
   winner!: boolean;
   wrongCounter!: number;
 
+  // money stuff
+  moneyArray: {image: string, answer: number}[] = [];
+  moneyQuestion!: {image: string, answer: number};
+
   ngOnInit() {
+    this.loadMoneyArray();
     this.progressBar = 0;
     this.wrongCounter = 0;
-    this.gameRoundStart();
+    this.gameRoundSwitch();
     this.winner = false;
 
     this.correctSound =  new Howl({
@@ -64,10 +73,35 @@ export class AppComponent {
 
   }
 
-  gameRoundStart() {
+  gameRoundSwitch() {
+    let gameMode = this.randomInt(0,1);
+
+    if(gameMode === 0) {
+      this.modeNumbers = true;
+      this.modeMoney = false;
+      this.gameNumberRoundStart()
+    } else {
+      this.modeNumbers = false;
+      this.modeMoney = true;
+      this.gameMoneyRoundStart();
+    }
+  }
+
+  gameNumberRoundStart() {
     this.number1 = this.randomInt(this.min, this.max);
     this.number2 = this.randomInt(this.min, this.max);
     this.correctAnswer = this.number1 + this.number2;
+    var incorrectAnswer1 = this.correctAnswer + this.randomInt(1, 2);
+    var incorrectAnswer2 = this.correctAnswer - this.randomInt(1, 2);
+
+    this.answerArray = [];
+    this.answerArray.push(this.correctAnswer, incorrectAnswer1, incorrectAnswer2);
+    this.answerArray = this.shuffleArray(this.answerArray);
+  }
+
+  gameMoneyRoundStart() {
+    this.moneyQuestion = this.moneyArray[this.randomInt(0, 9)];
+    this.correctAnswer = this.moneyQuestion.answer;
     var incorrectAnswer1 = this.correctAnswer + this.randomInt(1, 2);
     var incorrectAnswer2 = this.correctAnswer - this.randomInt(1, 2);
 
@@ -97,7 +131,7 @@ export class AppComponent {
       this.winner = true;
       this.youWinSound.play();
     } else {
-      this.gameRoundStart();
+      this.gameRoundSwitch();
     }
   }
 
@@ -117,6 +151,19 @@ export class AppComponent {
       [array[i], array[j]] = [array[j], array[i]]; 
     } 
     return array; 
+  }
+
+  private loadMoneyArray() {
+    this.moneyArray.push({image: '/imgs/dinero_1.png', answer: 1.20});
+    this.moneyArray.push({image: '/imgs/dinero_2.png', answer: 1.35});
+    this.moneyArray.push({image: '/imgs/dinero_3.png', answer: 23});
+    this.moneyArray.push({image: '/imgs/dinero_4.png', answer: 6.50});
+    this.moneyArray.push({image: '/imgs/dinero_5.png', answer: 31.70});
+    this.moneyArray.push({image: '/imgs/dinero_6.png', answer: 64});
+    this.moneyArray.push({image: '/imgs/dinero_7.png', answer: 80});
+    this.moneyArray.push({image: '/imgs/dinero_8.png', answer: 140});
+    this.moneyArray.push({image: '/imgs/dinero_9.png', answer: 17.25});
+    this.moneyArray.push({image: '/imgs/dinero_10.png', answer: 5.30});
   }
 
 }
