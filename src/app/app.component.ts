@@ -9,7 +9,7 @@ import { Howl } from 'howler';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ProgressBarModule, ToastModule, SidebarModule],
+  imports: [ProgressBarModule, ToastModule, SidebarModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
   providers: [MessageService]
@@ -75,7 +75,7 @@ export class AppComponent {
     if (answer === this.correctAnswer) {
       this.correctSound.play();
       this.messageService.add({ severity: 'success', summary: 'Correct', detail: 'Good Work! 👍🏻' });
-      this.progressBar = this.progressBar + 100;
+      this.progressBar = this.progressBar + 10;
     } else {
       this.wrongAnswerSound.play();
       this.messageService.add({ severity: 'error', summary: 'Wrong Answer', detail: "Sorry, try again 👎🏻" });
