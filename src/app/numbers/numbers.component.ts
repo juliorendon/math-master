@@ -17,8 +17,6 @@ export class NumbersComponent {
     answerArray!: number[]
     number1!: number;
     number2!: number;
-    winner!: boolean;
-    wrongCounter!: number;
     playerAnswer!: boolean;
 
     @Output('numbersAnswerEvent') answerEvent = new EventEmitter<boolean>();

@@ -9,11 +9,20 @@ import { CommonModule } from '@angular/common';
 import Utils from '../utils/utils';
 import { MoneyComponent } from './money/money.component';
 import { NumbersComponent } from './numbers/numbers.component';
+import { CompareComponent } from './compare/compare.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, ProgressBarModule, ToastModule, SidebarModule, NumbersComponent, MoneyComponent],
+  imports: [
+    CommonModule, 
+    ProgressBarModule, 
+    ToastModule, 
+    SidebarModule, 
+    NumbersComponent, 
+    MoneyComponent, 
+    CompareComponent
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
   providers: [MessageService]
@@ -22,6 +31,7 @@ export class AppComponent {
   constructor(private messageService: MessageService) {}
 
   title = 'math-master';
+  logo = '/imgs/logo_1.png';
   progressBar = 0;
   correctSound: any;
   wrongAnswerSound: any;
@@ -36,12 +46,14 @@ export class AppComponent {
 
   modeNumbers!: boolean;
   modeMoney!: boolean;
+  modeCompare!: boolean;
   winner!: boolean;
   wrongCounter!: number;
 
   gameMode!: number;
 
   ngOnInit() {
+    this.logo = `/imgs/logo_${Utils.randomInt(1, 3)}.jpg`;
     this.progressBar = 0;
     this.wrongCounter = 0;
     this.gameRoundSwitch();
@@ -66,14 +78,20 @@ export class AppComponent {
   }
 
   gameRoundSwitch() {
-    this.gameMode = Utils.randomInt(0,1);
+    this.gameMode = Utils.randomInt(0,2);
 
     if(this.gameMode === 0) {
       this.modeNumbers = true;
       this.modeMoney = false;
-    } else {
+      this.modeCompare = false;
+    } else if (this.gameMode === 1) {
       this.modeNumbers = false;
       this.modeMoney = true;
+      this.modeCompare = false;
+    } else {
+      this.modeNumbers = false;
+      this.modeMoney = false;
+      this.modeCompare = true;
     }
   }
 
@@ -84,7 +102,7 @@ export class AppComponent {
       this.progressBar = this.progressBar + 10;
     } else {
       this.wrongAnswerSound.play();
-      this.messageService.add({ severity: 'error', summary: 'Wrong Answer', detail: "Sorry, try again 👎🏻" });
+      this.messageService.add({ severity: 'error', summary: 'Wrong Answer', detail: "Sorry, try again 😵" });
       this.progressBar === 0? this.progressBar = 0 : this.progressBar = this.progressBar - 10;
       this.wrongCounter = this.wrongCounter + 1;
     }
@@ -117,6 +135,11 @@ export class AppComponent {
   // Money
   getMoneyAnswer(answer: boolean) {
     console.log('Money Answer: ', answer);
+    this.checkAnwser(answer);
+  }
+
+  getCompareAnswer(answer: boolean) {
+    console.log('Compare Answer: ', answer);
     this.checkAnwser(answer);
   }
 

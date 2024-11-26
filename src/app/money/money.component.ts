@@ -31,7 +31,7 @@ export class MoneyComponent {
 
     this.correctAnswer = this.moneyQuestion.answer;
     var incorrectAnswer1 = this.correctAnswer + Utils.randomInt(1, 2);
-    var incorrectAnswer2 = this.correctAnswer - Utils.randomInt(1, 2);
+    var incorrectAnswer2 = this.correctAnswer + Utils.randomInt(3, 4);
 
     this.answerArray = [];
     this.answerArray.push(this.correctAnswer, incorrectAnswer1, incorrectAnswer2);
