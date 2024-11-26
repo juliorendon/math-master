@@ -1,1 +1,13 @@
-<p>money works!</p>
+<div class="row">
+    <div class="col">
+      <img [src]="moneyQuestion.image" class="img-thumbnail rounded logo-img border border-0 mt-2" alt="money question" /><br>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col">
+      <button type="button" class="btn btn-primary number-button" (click)="checkAnwser(answerArray[0])">{{ answerArray[0] | number : '1.2-2' }}€</button>
+      <button type="button" class="btn btn-purple number-button ms-1" (click)="checkAnwser(answerArray[1])">{{ answerArray[1] | number : '1.2-2' }}€</button>
+      <button type="button" class="btn btn-orange number-button ms-1" (click)="checkAnwser(answerArray[2])">{{ answerArray[2] | number : '1.2-2' }}€</button>
+    </div>
+</div> 

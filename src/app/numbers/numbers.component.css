@@ -1,0 +1,31 @@
+.operation-text {
+    font-size: 3rem;
+}
+
+.number-button {
+    min-width: 200px;
+    min-height: 100px;
+    font-size: 5rem;
+}
+
+.btn-purple {
+    background-color: #8A2BE2;
+    border: #8A2BE2;
+    color: #ffffff;
+}
+
+.btn-purple:hover .btn-purple:active .btn-purple:visited   {
+    background-color: #61018a !important;
+    border: #61018a !important;
+}
+
+.btn-orange {
+    background-color: #FFA500;
+    border: #FFA500;
+    color: #ffffff;
+}
+
+.btn-orange:hover .btn-orange:active .btn-orange:visited   {
+    background-color: #FF8C00 !important;
+    border: #FF8C00 !important;
+}
