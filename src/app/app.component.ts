@@ -49,6 +49,7 @@ export class AppComponent {
   modeCompare!: boolean;
   winner!: boolean;
   wrongCounter!: number;
+  laugh!: boolean;
 
   gameMode!: number;
 
@@ -58,6 +59,7 @@ export class AppComponent {
     this.wrongCounter = 0;
     this.gameRoundSwitch();
     this.winner = false;
+    this.laugh = false;
 
     this.correctSound =  new Howl({
       src: [this.correct]
@@ -98,11 +100,11 @@ export class AppComponent {
   checkAnwser(answer: boolean) {
     if (answer) {
       this.correctSound.play();
-      this.messageService.add({ severity: 'success', summary: 'Correct', detail: 'Good Work! 👍🏻' });
+      this.messageService.add({ severity: 'success', summary: 'Correct', detail:  '✔️🤩 Gut gemacht!' });
       this.progressBar = this.progressBar + 10;
     } else {
       this.wrongAnswerSound.play();
-      this.messageService.add({ severity: 'error', summary: 'Wrong Answer', detail: "Sorry, try again 😵" });
+      this.messageService.add({ severity: 'error', summary: 'Wrong Answer', detail: " ❌😵  Ups! Nächstes Mal besser" });
       this.progressBar === 0? this.progressBar = 0 : this.progressBar = this.progressBar - 10;
       this.wrongCounter = this.wrongCounter + 1;
     }
@@ -110,6 +112,7 @@ export class AppComponent {
     if(this.wrongCounter === 3) {
       this.youLooseSound.play();
       this.wrongCounter = 0;
+      this.laugh = true;
     }
 
     if(this.progressBar === 100) {
@@ -123,6 +126,7 @@ export class AppComponent {
   resetGame() {
     this.progressBar = 0;
     this.winner = false;
+    this.laugh = false;
     this.wrongCounter = 0;
   }
 

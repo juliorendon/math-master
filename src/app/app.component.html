@@ -1,16 +1,22 @@
 <p-toast [preventOpenDuplicates]="true" [life]="1500" />
 
 <p-sidebar [(visible)]="winner" position="top" dismissible="false" closeOnEscape="false" showCloseIcon="false" [style]="{height: '200px'}">
-  <h3>Congratulations!</h3>
-  <p>You are the new Math Master 🥳</p>
-  <button type="button" class="btn btn-primary" (click)="resetGame()">Try Again?</button>
+  <h3>Wunderbar! 👏👏👏</h3>
+  <p>Viel Spaß weiterhin in Mathe❣️</p>
+  <button type="button" class="btn btn-primary" (click)="resetGame()">Noch Einmal?</button>
+</p-sidebar>
+
+<p-sidebar [(visible)]="laugh" position="top" dismissible="false" closeOnEscape="false" showCloseIcon="false" [fullScreen]="true">
+  <h3>Ups! 🤭</h3>
+  <img src="/imgs/laugh.webp" class="img-thumbnail rounded logo-img border border-0 mt-2" alt="Laugh" /><br>
+  <button type="button" class="btn btn-primary" (click)="resetGame()">Noch Einmal?</button>
 </p-sidebar>
 
 <div class="container text-center">
   <div class="row">
     <div class="col">
       <img [src]="logo" class="img-thumbnail rounded logo-img border border-0 mt-2" alt="Math Master" /><br>
-      <label class="logo-text">Math Master</label>
+      <label class="logo-text">SpaßMathe</label>
     </div>
   </div>
 
